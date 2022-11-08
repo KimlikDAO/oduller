@@ -1,3 +1,6 @@
 [submodule "sdk"]
 	path = sdk
 	url = git@github.com:KimlikDAO/kimlikdao-sdk
+[submodule "dapp"]
+	path = dapp
+	url = git@github.com:KimlikDAO/dapp
