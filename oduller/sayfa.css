@@ -22,3 +22,7 @@ input::-webkit-inner-spin-button {
 .odstep.done {
   opacity: 0.8;
 }
+
+#odtx {
+  margin: 1em 0;
+}
