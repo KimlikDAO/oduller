@@ -1,13 +1,18 @@
 account_id = "8f0c2f2271ff857947d9a5b2c38595a0"
 zone_id = "cb31764917040dd0b9a7b79e1ec099df"
 
-main = "build/prod.js"
+main = "workers/prod.js"
 name = "oduller"
 workers_dev = false
 route = "https://kimlikdao.org/oduller"
-compatibility_date = "2022-09-09"
+compatibility_date = "2022-12-05"
 usage_model = "bundled"
 
 [dev]
 port = 8787
 local_protocol = "http"
+
+[durable_objects]
+bindings=[
+  {name= 'USER', class_name= 'User'},
+]

@@ -48,8 +48,17 @@ createServer({
 }).then((vite) => {
   const app = express()
   app.use(vite.middlewares)
-  app.use(Object.keys(SAYFALAR), (req, res, next) => {
-    if (!(req.path in SAYFALAR)) {
+  app.use('/', (req, res, next) => {
+    if (req.path == '/validate') {
+      res.status(200)
+        .set({ 'Content-type': 'application/json' })
+        .end(JSON.stringify(
+          {
+            success: false,
+            error: 2,
+          }
+        ))
+    } else if (!(req.path in SAYFALAR)) {
       res.status(200).end(); // Dev sunucuda hata vermemeye çalış
     } else {
       let sayfa = sayfaOku(SAYFALAR[req.path]);
