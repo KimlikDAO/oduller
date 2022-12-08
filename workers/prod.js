@@ -17,7 +17,7 @@ export default {
             if (report.validity == 'valid') {
               const humanIDGeneric = validationRequest.decryptedInfos['humanID']['generic'];
               const id = env.PARTICIPANT.idFromName(humanIDGeneric);
-              const object = env.PARTICIPANT.get(id);
+              const object = env.PARTICIPANT.get(id);a
               object.fetch(`${apiURL}/`)
                 .then(res => {
                   if (res == '') {

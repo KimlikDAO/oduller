@@ -21,7 +21,7 @@ input::-webkit-inner-spin-button {
 }
 
 #odtx {
-  margin: 1em 0;
+  margin: 1em 0 1.25em;
 }
 
 #odconfetti {
@@ -39,7 +39,7 @@ input::-webkit-inner-spin-button {
   font-size: 0.9em;
   color: #3d67ab;
   position: relative;
-  padding: 0 0 1.5em 1em;
+  padding-left: 1em;
 }
 
 .odtxl:hover {
