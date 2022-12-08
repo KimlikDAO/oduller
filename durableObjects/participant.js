@@ -1,4 +1,4 @@
-export class User {
+export class Participant {
   constructor(state, env) {
     this.state = state;
   }

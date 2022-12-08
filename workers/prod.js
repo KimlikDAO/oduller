@@ -1,5 +1,5 @@
 import { Validator } from '/sdk/server-js/validator'
-export { User } from '/durableObjects/user'
+export { Participant } from '/durableObjects/participant'
 
 const validator = new Validator({
   '0xa86a': 'https://avalanche.kimlikdao.org',
@@ -16,8 +16,8 @@ export default {
           .then((report) => {
             if (report.validity == 'valid') {
               const humanIDGeneric = validationRequest.decryptedInfos['humanID']['generic'];
-              const id = env.USER.idFromName(humanIDGeneric);
-              const object = env.USER.get(id);
+              const id = env.PARTICIPANT.idFromName(humanIDGeneric);
+              const object = env.PARTICIPANT.get(id);
               object.fetch(`${apiURL}/`)
                 .then(res => {
                   if (res == '') {
