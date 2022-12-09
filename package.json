@@ -14,10 +14,10 @@
   "devDependencies": {
     "csso-cli": "^4.0.1",
     "express": "^4.18.1",
-    "google-closure-compiler": "^20220601.0.0",
+    "google-closure-compiler": "^20221102.0.1",
     "html-minifier": "^4.0.0",
     "htmlparser2": "^8.0.1",
-    "svgo": "^2.8.0",
+    "svgo": "^3.0.2",
     "toml": "^3.0.0",
     "uglify-js": "^3.16.2",
     "vite": "^3.0.2"

@@ -13,17 +13,15 @@ CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
 
 const Validator = new kimlikdao.Validator('http://localhost:8787/validate')
 
-const HataMesajlari = dom.TR
-  ? [
-    "",
-    "Kampanyaya daha önce katılmışsınız 👍",
-    "Bilgileriniz Hatalı."
-  ] :
-  [
-    "",
-    "You have participated in the campaign before 👍",
-    "Your information is incorrect."
-  ];
+const HataMesajlari = dom.TR ? [
+  "",
+  "Kampanyaya daha önce katılmışsınız 👍",
+  "Bilgileriniz Hatalı."
+] : [
+  "",
+  "You have participated in the campaign before 👍",
+  "Your information is incorrect."
+];
 
 Cüzdan.bağlanınca(() => {
   dom.adla("ods0c").classList.add("done");
@@ -42,23 +40,22 @@ const bilgileriKontrolEt = () => {
   kimlikdao.validateTckt(['contactInfo', 'humanID'], Validator, false)
     .then(res => res.json())
     .then(res => {
-      dom.adla("ods1ac").classList.add("done");
       dom.butonDurdur(dom.adla("ods1ab"));
       dom.adla("ods1ab").classList.remove("act");
       dom.adla('ods1ab').innerText = dom.TR ? "Bilgilerinizi aldık ✓" : "We got your info ✓";
       if (res.success) {
+        const confettiSettings = { target: 'odconfetti' };
+        const confetti = new ConfettiGenerator(confettiSettings);
+        confetti.render();
         dom.adlaGöster('ods2ac');
         dom.adlaGöster('odconfetti');
-        setTimeout(() => dom.adlaGizle('odconfetti'), 3000);
         dom.adla('odtx').innerHTML =
-          `<a href="https://${Cüzdan.AğBilgileri[res.chainId][0]}/tx/${res.txHash}" target="_blank" rel="noopener noreferrer">${res.txHash}</a>`
+          `<a href="https://${Cüzdan.AğBilgileri[res.chainId][0]}/tx/${res.txHash}" class="odtxl" target="_blank" rel="noopener noreferrer">
+            ${res.txHash}
+          </a>`
       } else {
         dom.adlaGöster('ods2bc');
         dom.adla('ods2bt').innerText = HataMesajlari[res.error];
       }
     })
 }
-
-const confettiSettings = { target: 'odconfetti' };
-const confetti = new ConfettiGenerator(confettiSettings);
-confetti.render();

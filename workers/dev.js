@@ -16,7 +16,7 @@ const birimOku = (dosyaAdı) => {
   }
 
   sayfa = sayfa.replace(/<birim:([^\s]+)[^\/]+\/>/g, (_, birimAdı) => {
-    let [birim, altStiller] = birimOku(`birim/${birimAdı.trim()}/birim.html`);
+    let [birim, altStiller] = birimOku(`dapp/birim/${birimAdı.trim()}/birim.html`);
     stiller.push(...altStiller);
     return birim;
   });
@@ -49,10 +49,11 @@ createServer({
   const app = express()
   app.use(vite.middlewares)
   app.use('/', (req, res, next) => {
+
     if (req.path == '/validate') {
       res.status(200)
         .set({ 'Content-type': 'application/json' })
-        .end('{"success": true, "txHash": "0xa21891298", "chainId": "0xa86a"}')
+        .end('{"success": true, "txHash": "0x6ec58cb638fe1a3456cb419d94f89895f2913a364198ef06726ab0e629c4e3e3", "chainId": "0xa86a"}')
     } else if (!(req.path in SAYFALAR)) {
       res.status(200).end(); // Dev sunucuda hata vermemeye çalış
     } else {
@@ -71,4 +72,4 @@ createServer({
   const port = cfConfig.dev.port;
   console.log(`Ana sayfaya şu adreste çalışıyor: http://localhost:${port}`)
   app.listen(port);
-})
+});
