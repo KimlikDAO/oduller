@@ -53,6 +53,13 @@ const bilgileriKontrolEt = () => {
         confetti();
         dom.adlaGöster("ods2ac");
         dom.adlaGöster("odconfetti");
+        const overlay = dom.adla("overlay");
+        const modal = dom.adla("modal");
+        const openModal = () => {
+          modal.classList.add("active");
+          overlay.classList.add("active");
+        };
+        openModal();
         dom.adla("odtx").innerHTML = `<a href="https://${
           Cüzdan.AğBilgileri[res.chainId][0]
         }/tx/${
