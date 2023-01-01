@@ -9,10 +9,10 @@ compatibility_date = "2022-12-05"
 usage_model = "bundled"
 
 [dev]
-port = 8787
+port = 8788
 local_protocol = "http"
 
 [durable_objects]
 bindings=[
-  {name= 'USER', class_name= 'User'},
+  {name= 'PARTICIPANT', class_name= 'Participant'},
 ]

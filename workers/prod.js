@@ -1,35 +1,53 @@
-import { Validator } from '/sdk/server-js/validator'
-export { Participant } from '/durableObjects/participant'
+// export { Participant } from '/durableObjects/participant';
 
-const validator = new Validator({
-  '0xa86a': 'https://avalanche.kimlikdao.org',
-  'kimlikdao': 'https://node.kimlikdao.org',
-})
+const validator = (x) => true;
+
+export class Participant {
+  constructor(state, env) {
+    this.state = state;
+  }
+
+  /**
+   * @param {cloudflare.Request}
+   * @param {cloudflare.Environment}
+   * @param {cloudflare.Context}
+   */ 
+  async fetch(req, env, ctx) {
+    req.json()
+      .then((res) => console.log(res));
+    /** @type {string} */
+    let txHash = await this.state.storage.get("txHash");
+    if (!txHash) {
+      txHash = "0xa5"
+      await this.state.storage.put("txHash", txHash);
+      return new Response("Transfer yapıldı: " + txHash);
+    } else {
+      return new Response(`${txHash} adlı transfer zaten var`)
+    }    
+  }
+}
+
 
 export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+  /**
+   * @param {cloudflare.Request} 
+   * @param {cloudflare.Environment} 
+   * @param {cloudflare.Context}  
+   */
+  async fetch(req, env, ctx) {
+    const url = new URL(req.url);
     if (url.pathname == '/validate') {
-      return request.body()
-        .then(response => response.json())
-        .then(validationRequest => validator.validate(validationRequest)
-          .then((report) => {
-            if (report.validity == 'valid') {
-              const humanIDGeneric = validationRequest.decryptedInfos['humanID']['generic'];
-              const id = env.PARTICIPANT.idFromName(humanIDGeneric);
-              const object = env.PARTICIPANT.get(id);a
-              object.fetch(`${apiURL}/`)
-                .then(res => {
-                  if (res == '') {
-                    // transaction
-                  } else {
-                    // daha once katilmis
-                    return new Response('katilmis')
-                  }
-                })
-            }
-          })
-        )
+      return req.json()
+        // .then((response) => response.json())
+        .then(/** kimlikdao.validationRequest */(validationRequest) => {
+          if (true) {
+            const humanId = validationRequest.decryptedInfos["humanID"].generic;
+            // Unique id in cloudflare for the class
+            const id = env.PARTICIPANT.idFromName(humanId);
+            const object = env.PARTICIPANT.get(id);
+            return object.fetch(req);
+          }
+        })
     }
   }
 }
