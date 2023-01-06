@@ -24,6 +24,10 @@ input::-webkit-inner-spin-button {
   margin: 1em 0 1.25em;
 }
 
+#odtxf {
+  margin: 1em 0 1.25em;
+}
+
 #odconfetti {
   position: fixed;
   top: 0;
@@ -75,4 +79,11 @@ input::-webkit-inner-spin-button {
 #overlay.active {
   opacity: 1;
   pointer-events: all;
+}
+
+.discord-link {
+  color:rgb(61, 103, 171);
+  text-decoration: underline;
+  text-underline-offset: 0.15rem;
+  font-weight: bold;
 }

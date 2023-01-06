@@ -5,21 +5,41 @@
 import { create } from "./confetti";
 import Cüzdan from "/birim/cüzdan/birim";
 import dom from "/lib/util/dom";
-import kimlikdao from "/sdk/client/kimlikdao";
 
+/** @const {Element} */
+const Konfeti = dom.adla("odconfetti");
 /** @const {Element} */
 const CüzdanBağlaDüğmesi = dom.adla("ods0b");
 CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
+/** @const {Element} */
+const DiscordLink = `<a href="https://discord.com/channels/951587582712639548/973319243544276992" target="_blank" rel="noopener noreferrer" class="discord-link">Discord</a>`;
 
-const Validator = new kimlikdao.Validator("http://localhost:8787/validate");
+const kimlikdao = {};
+kimlikdao.hasDID = (contractaddress) => Promise.resolve(true);
+kimlikdao.getValidated = (contractAddress, sectionNames) => Promise.resolve(Response.json({
+  "sentNow": false,
+  "txHash": "0xasdfkjas",
+  "chainId": "0xa86a"
+}));
+
+const popup = () => {
+  const overlay = dom.adla("overlay");
+  const modal = dom.adla("modal");
+  openModal(modal, overlay);
+};
+
+const openModal = (modal, overlay) => {
+  modal.classList.add("active");
+  overlay.classList.add("active");
+};
 
 const HataMesajlari = dom.TR
-  ? ["", "Kampanyaya daha önce katılmışsınız 👍", "Bilgileriniz Hatalı."]
+  ? ["", `Oops! Fark ettik ki ödülünü daha önceden almışsın. Bundan dolayı kampanyamızdan tekrar yararlanamazsın. O zaman seni ${DiscordLink} kanalımıza bekliyoruz. Orada görüşmek üzere 👋`, "Bilgileriniz Hatalı."]
   : [
-      "",
-      "You have participated in the campaign before 👍",
-      "Your information is incorrect.",
-    ];
+    "",
+    "Oops! We realized that you took your prize before. So, you cannot participate our campaign again. Then, we hope to see you soon in our Discord 👋.",
+    "Your information is incorrect.",
+  ];
 
 Cüzdan.bağlanınca(() => {
   dom.adla("ods0c").classList.add("done");
@@ -28,19 +48,17 @@ Cüzdan.bağlanınca(() => {
   CüzdanBağlaDüğmesi.innerText = dom.TR
     ? "Cüzdan bağlandı ✓"
     : "Wallet connected ✓";
-  kimlikdao.hasTckt().then((present) => {
-    if (true) {
-      dom.adlaGöster("ods1ac");
-      dom.adla("ods1ab").onclick = bilgileriKontrolEt;
-    } else {
-      dom.adlaGöster("ods1bc");
-    }
-  });
+  if (true) {
+    dom.adlaGöster("ods1ac");
+    dom.adla("ods1ab").onclick = bilgileriKontrolEt;
+  } else {
+    dom.adlaGöster("ods1bc");
+  }
 });
 
 const bilgileriKontrolEt = () => {
   kimlikdao
-    .validateTckt(["contactInfo", "humanID"], Validator, false)
+    .getValidated(0xaa, "humanID")
     .then((res) => res.json())
     .then((res) => {
       dom.butonDurdur(dom.adla("ods1ab"));
@@ -48,9 +66,9 @@ const bilgileriKontrolEt = () => {
       dom.adla("ods1ab").innerText = dom.TR
         ? "Bilgilerinizi aldık ✓"
         : "We got your info ✓";
-      if (res.success) {
+      if (res.sentNow) {
         const confetti = create(dom.adla("odconfetti"));
-        let count = 200;
+        let count = 300;
         let defaults = {
           origin: { y: 0.7 },
         };
@@ -84,27 +102,25 @@ const bilgileriKontrolEt = () => {
           startVelocity: 45,
         });
         dom.adlaGöster("ods2ac");
-        dom.adlaGöster("odconfetti");
-        const overlay = dom.adla("overlay");
-        const modal = dom.adla("modal");
-        const openModal = () => {
-          modal.classList.add("active");
-          overlay.classList.add("active");
-        };
-        openModal();
-        dom.adla("odtx").innerHTML = `<a href="https://${
-          Cüzdan.AğBilgileri[res.chainId][0]
-        }/tx/${
-          res.txHash
-        }" class="odtxl" target="_blank" rel="noopener noreferrer">
+        dom.göster(Konfeti);
+        popup();
+        dom.adla("odtx").innerHTML = `<a href="https://${Cüzdan.AğBilgileri[res.chainId][0]
+          }/tx/${res.txHash
+          }" class="odtxl" target="_blank" rel="noopener noreferrer">
             ${res.txHash}
           </a>`;
+        setTimeout(() => {
+          Konfeti.remove();
+        }, 3000);
       } else {
         dom.adlaGöster("ods2bc");
-        dom.adla("ods2bt").innerText = HataMesajlari[res.error];
+        dom.adla("ods2bt").innerHTML = HataMesajlari[1];
+        popup();
+        dom.adla("odtxf").innerHTML = `<a href="https://${Cüzdan.AğBilgileri[res.chainId][0]
+          }/tx/${res.txHash
+          }" class="odtxl" target="_blank" rel="noopener noreferrer">
+            ${res.txHash}
+          </a>`;
       }
-      setTimeout(() => {
-        dom.adlaGizle("odconfetti");
-      }, 3500);
     });
 };
