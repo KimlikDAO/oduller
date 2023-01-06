@@ -68,7 +68,7 @@ const bilgileriKontrolEt = () => {
         : "We got your info ✓";
       if (res.sentNow) {
         const confetti = create(dom.adla("odconfetti"));
-        let count = 300;
+        let count = 2500;
         let defaults = {
           origin: { y: 0.7 },
         };
@@ -82,24 +82,27 @@ const bilgileriKontrolEt = () => {
         fire(0.25, {
           spread: 26,
           startVelocity: 55,
+          scalar: 0.4
         });
         fire(0.2, {
           spread: 60,
+          scalar: 0.4
         });
         fire(0.35, {
           spread: 100,
           decay: 0.91,
-          scalar: 0.8,
+          scalar: 0.25,
         });
         fire(0.1, {
           spread: 120,
           startVelocity: 25,
           decay: 0.92,
-          scalar: 1.2,
+          scalar: 0.25,
         });
         fire(0.1, {
           spread: 120,
           startVelocity: 45,
+          scalar: 0.25,
         });
         dom.adlaGöster("ods2ac");
         dom.göster(Konfeti);
