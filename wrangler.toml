@@ -4,12 +4,12 @@ zone_id = "cb31764917040dd0b9a7b79e1ec099df"
 main = "workers/prod.js"
 name = "oduller"
 workers_dev = false
-route = "https://kimlikdao.org/oduller"
+route = "https://oduller.kimlikdao.org"
 compatibility_date = "2022-12-05"
 usage_model = "bundled"
 
 [dev]
-port = 8788
+port = 8789
 local_protocol = "http"
 
 [durable_objects]

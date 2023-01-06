@@ -14,7 +14,7 @@ export class Participant {
   }
   /**
    * @param {!Request} req
-   * @param {!cloudflare.Environment} env
+   * @param {!ProdEnvironment} env
    * @return {Promise<!Response>}
    */
   fetch(req, env) {

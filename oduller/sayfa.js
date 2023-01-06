@@ -10,14 +10,15 @@ import dom from "/lib/util/dom";
 const Konfeti = dom.adla("odconfetti");
 /** @const {Element} */
 const CüzdanBağlaDüğmesi = dom.adla("ods0b");
-CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
 /** @const {Element} */
 const DiscordLink = `<a href="https://discord.com/channels/951587582712639548/973319243544276992" target="_blank" rel="noopener noreferrer" class="discord-link">Discord</a>`;
+
+CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
 
 const kimlikdao = {};
 kimlikdao.hasDID = (contractaddress) => Promise.resolve(true);
 kimlikdao.getValidated = (contractAddress, sectionNames) => Promise.resolve(Response.json({
-  "sentNow": false,
+  "sentNow": true,
   "txHash": "0xasdfkjas",
   "chainId": "0xa86a"
 }));
