@@ -12,7 +12,6 @@ export class Participant {
   constructor(state, env) {
     this.state = state;
   }
-
   /**
    * @param {!Request} req
    * @param {!cloudflare.Environment} env

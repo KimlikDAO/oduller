@@ -27,7 +27,6 @@ const popup = () => {
   const modal = dom.adla("modal");
   openModal(modal, overlay);
 };
-
 const openModal = (modal, overlay) => {
   modal.classList.add("active");
   overlay.classList.add("active");

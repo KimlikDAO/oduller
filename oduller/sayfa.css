@@ -76,6 +76,7 @@ input::-webkit-inner-spin-button {
   background-color: rgba(0,0,0,0.5);
   pointer-events: none;
 }
+
 #overlay.active {
   opacity: 1;
   pointer-events: all;
