@@ -41,7 +41,7 @@ input::-webkit-inner-spin-button {
   font-family: monospace;
   word-break: break-all;
   font-size: 0.9em;
-  color: rgb(61, 103, 171);
+  color: #3d67ab;
   position: relative;
   padding: 0.5em ;
   background-color: rgba(110, 110, 110, 0.25);
@@ -49,8 +49,7 @@ input::-webkit-inner-spin-button {
 }
 
 .odtxl:hover {
-  color: rgb(81, 138, 230);
-  background-color: rgba(50, 50, 50);
+  opacity: 0.85;
 }
 
 .modal {
@@ -83,8 +82,11 @@ input::-webkit-inner-spin-button {
 }
 
 .discord-link {
-  color:rgb(61, 103, 171);
+  color:#3d67ab;
+  font-weight: bold;
+}
+
+.discord-link:hover {
   text-decoration: underline;
   text-underline-offset: 0.15rem;
-  font-weight: bold;
 }

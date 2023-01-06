@@ -16,7 +16,7 @@ CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
 const kimlikdao = {};
 kimlikdao.hasDID = (contractaddress) => Promise.resolve(true);
 kimlikdao.getValidated = (contractAddress, sectionNames) => Promise.resolve(Response.json({
-  "sentNow": false,
+  "sentNow": true,
   "txHash": "0xasdfkjas",
   "chainId": "0xa86a"
 }));
