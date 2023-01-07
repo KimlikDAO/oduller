@@ -10,10 +10,9 @@ import dom from "/lib/util/dom";
 const Konfeti = dom.adla("odconfetti");
 /** @const {Element} */
 const CüzdanBağlaDüğmesi = dom.adla("ods0b");
-/** @const {Element} */
-const DiscordLink = `<a href="https://discord.com/channels/951587582712639548/973319243544276992" target="_blank" rel="noopener noreferrer" class="discord-link">Discord</a>`;
 
 CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
+
 
 const kimlikdao = {};
 kimlikdao.hasDID = (contractaddress) => Promise.resolve(true);
@@ -32,14 +31,6 @@ const openModal = (modal, overlay) => {
   modal.classList.add("active");
   overlay.classList.add("active");
 };
-
-const HataMesajlari = dom.TR
-  ? ["", `Oops! Fark ettik ki ödülünü daha önceden almışsın. Bundan dolayı kampanyamızdan tekrar yararlanamazsın. O zaman seni ${DiscordLink} kanalımıza bekliyoruz. Orada görüşmek üzere 👋`, "Bilgileriniz Hatalı."]
-  : [
-    "",
-    "Oops! We realized that you took your prize before. So, you cannot participate our campaign again. Then, we hope to see you soon in our Discord 👋.",
-    "Your information is incorrect.",
-  ];
 
 Cüzdan.bağlanınca(() => {
   dom.adla("ods0c").classList.add("done");
@@ -68,7 +59,7 @@ const bilgileriKontrolEt = () => {
         : "We got your info ✓";
       if (res.sentNow) {
         const confetti = create(dom.adla("odconfetti"));
-        let count = 300;
+        let count = 2500;
         let defaults = {
           origin: { y: 0.7 },
         };
@@ -82,24 +73,27 @@ const bilgileriKontrolEt = () => {
         fire(0.25, {
           spread: 26,
           startVelocity: 55,
+          scalar: 0.4,
         });
         fire(0.2, {
           spread: 60,
+          scalar: 0.4,
         });
         fire(0.35, {
           spread: 100,
           decay: 0.91,
-          scalar: 0.8,
+          scalar: 0.25,
         });
         fire(0.1, {
           spread: 120,
           startVelocity: 25,
           decay: 0.92,
-          scalar: 1.2,
+          scalar: 0.25,
         });
         fire(0.1, {
           spread: 120,
           startVelocity: 45,
+          scalar: 0.25,
         });
         dom.adlaGöster("ods2ac");
         dom.göster(Konfeti);
@@ -114,7 +108,7 @@ const bilgileriKontrolEt = () => {
         }, 3000);
       } else {
         dom.adlaGöster("ods2bc");
-        dom.adla("ods2bt").innerHTML = HataMesajlari[1];
+        dom.adla("ods2bt");
         popup();
         dom.adla("odtxf").innerHTML = `<a href="https://${Cüzdan.AğBilgileri[res.chainId][0]
           }/tx/${res.txHash
