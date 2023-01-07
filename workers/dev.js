@@ -26,7 +26,7 @@ const birimOku = (dosyaAdı) => {
     return birim;
   });
   return [sayfa, stiller];
-}
+};
 
 /** @param {string} dosyaAdı */
 const sayfaOku = (dosyaAdı) => {
@@ -35,7 +35,7 @@ const sayfaOku = (dosyaAdı) => {
     .map((stil) => `  <link href="${stil}" rel="stylesheet" type="text/css" />\n`)
     .join('');
   return sayfa.replace("</head>", stiller + "</head>");
-}
+};
 
 /** @const {Object<string, string>} */
 const SAYFALAR = {
@@ -46,14 +46,14 @@ createServer({
   server: { middlewareMode: true },
   appType: 'custom'
 }).then((vite) => {
-  const app = express()
-  app.use(vite.middlewares)
+  const app = express();
+  app.use(vite.middlewares);
   app.use('/', (req, res, next) => {
 
     if (req.path == '/validate') {
       res.status(200)
         .set({ 'Content-type': 'application/json' })
-        .end('{"success": true, "txHash": "0x6ec58cb638fe1a3456cb419d94f89895f2913a364198ef06726ab0e629c4e3e3", "chainId": "0xa86a"}')
+        .end('{"success": true, "txHash": "0x6ec58cb638fe1a3456cb419d94f89895f2913a364198ef06726ab0e629c4e3e3", "chainId": "0xa86a"}');
     } else if (!(req.path in SAYFALAR)) {
       res.status(200).end(); // Dev sunucuda hata vermemeye çalış
     } else {
@@ -63,13 +63,13 @@ createServer({
           .set({ 'Content-type': 'text/html;charset=utf-8' })
           .end(sayfa);
       }).catch((e) => {
-        vite.ssrFixStacktrace(e)
-        next(e)
-      })
+        vite.ssrFixStacktrace(e);
+        next(e);
+      });
     }
-  })
+  });
   const cfConfig = parse(readFileSync('wrangler.toml'));
   const port = 8789;
-  console.log(`Ana sayfaya şu adreste çalışıyor: http://localhost:${port}`)
+  console.log(`Ana sayfaya şu adreste çalışıyor: http://localhost:${port}`);
   app.listen(port);
 });

@@ -41,7 +41,7 @@ input::-webkit-inner-spin-button {
   font-family: monospace;
   word-break: break-all;
   font-size: 0.9em;
-  color: #3d67ab;
+  color: rgb(61, 103, 171);
   position: relative;
   padding: 0.5em ;
   background-color: rgba(110, 110, 110, 0.25);
