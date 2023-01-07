@@ -12,8 +12,7 @@ const Konfeti = dom.adla("odconfetti");
 const CüzdanBağlaDüğmesi = dom.adla("ods0b");
 
 CüzdanBağlaDüğmesi.onclick = Cüzdan.bağla;
-/** @const {Element} */
-const DiscordLink = `<a href="https://discord.com/channels/951587582712639548/973319243544276992" target="_blank" rel="noopener noreferrer" class="discord-link">Discord</a>`;
+
 
 const kimlikdao = {};
 kimlikdao.hasDID = (contractaddress) => Promise.resolve(true);
